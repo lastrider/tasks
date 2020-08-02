@@ -4,6 +4,7 @@ import com.crud.tasks.domain.Task;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface TaskRepository extends CrudRepository<Task, Long> {
 
@@ -11,5 +12,11 @@ public interface TaskRepository extends CrudRepository<Task, Long> {
     List<Task> findAll();
 
     Task findById(long id);
+
+    @Override
+    Task save(Task task);
+
+    @Override
+    Optional<Task> findById(Long id);
 
 }
