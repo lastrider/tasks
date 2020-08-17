@@ -26,6 +26,8 @@ dependencies {
     compile 'org.postgresql:postgresql'
     annotationProcessor 'org.projectlombok:lombok'
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+
+    compile group: 'com.heroku.sdk', name: 'heroku-maven-plugin', version: '3.0.4'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
