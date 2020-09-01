@@ -25,7 +25,7 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     compile 'org.postgresql:postgresql'
     annotationProcessor 'org.projectlombok:lombok'
-    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+    //providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 
     compile group: 'com.heroku.sdk', name: 'heroku-maven-plugin', version: '3.0.4'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
@@ -41,4 +41,4 @@ apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
-apply plugin: 'war'
+//apply plugin: 'war'
