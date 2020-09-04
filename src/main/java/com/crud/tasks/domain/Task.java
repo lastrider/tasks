@@ -3,9 +3,9 @@ package com.crud.tasks.domain;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,8 +13,7 @@ import javax.persistence.*;
 @Entity(name = "tasks")
 public class Task {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "incrementDomain")
-    @GenericGenerator(name = "incrementDomain", strategy = "increment")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "name")
