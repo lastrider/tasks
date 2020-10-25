@@ -24,7 +24,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'
     implementation 'mysql:mysql-connector-java'
-    //compile 'org.postgresql:postgresql'
+    compile 'org.postgresql:postgresql'
     annotationProcessor 'org.projectlombok:lombok'
     //providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 
