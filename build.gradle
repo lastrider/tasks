@@ -27,6 +27,8 @@ dependencies {
     compile 'org.postgresql:postgresql'
     annotationProcessor 'org.projectlombok:lombok'
     //providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+    compile('io.springfox:springfox-swagger2:2.7.0')
+    compile('io.springfox:springfox-swagger-ui:2.7.0')
 
     compile group: 'com.heroku.sdk', name: 'heroku-maven-plugin', version: '3.0.4'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
