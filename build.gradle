@@ -29,7 +29,7 @@ dependencies {
     //providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
     compile('io.springfox:springfox-swagger2:2.7.0')
     compile('io.springfox:springfox-swagger-ui:2.7.0')
-
+    implementation 'org.springframework.boot:spring-boot-starter-mail:2.3.4.RELEASE'
     compile group: 'com.heroku.sdk', name: 'heroku-maven-plugin', version: '3.0.4'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
