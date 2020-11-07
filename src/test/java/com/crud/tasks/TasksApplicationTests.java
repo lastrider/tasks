@@ -11,6 +11,5 @@ class TasksApplicationTests {
 	void contextLoads() {
 	}
 
-
 }
 
