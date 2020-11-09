@@ -10,20 +10,20 @@ import static java.util.stream.Collectors.toList;
 @Component
 public class TrelloMapper {
 
-    public List<TrelloBoard> mapToBoards(final List<TrelloBoardDto> trelloBoardDtos) {
-        return trelloBoardDtos.stream()
+    public List<TrelloBoard> mapToBoards(final List<TrelloBoardDto> trelloBoardsDto) {
+        return trelloBoardsDto.stream()
                 .map(trelloBoardDto -> new TrelloBoard(trelloBoardDto.getId(), trelloBoardDto.getName(), mapToList(trelloBoardDto.getLists())))
                 .collect(toList());
     }
 
     public List<TrelloBoardDto> mapToBoardsDto(final List<TrelloBoard> trelloBoards) {
         return trelloBoards.stream()
-                .map(trelloBoard -> new TrelloBoardDto(trelloBoard.getId(), trelloBoard.getName(), mapToListDto(trelloBoard.getLists()))
+                .map(trelloBoard -> new TrelloBoardDto(trelloBoard.getName(), trelloBoard.getId(), mapToListDto(trelloBoard.getLists()))
                 ).collect(toList());
     }
 
-    public List<TrelloList> mapToList(final List<TrelloListDto> trelloListDtos) {
-        return trelloListDtos.stream()
+    public List<TrelloList> mapToList(final List<TrelloListDto> trelloListsDto) {
+        return trelloListsDto.stream()
                 .map(trelloListDto -> new TrelloList(trelloListDto.getId(), trelloListDto.getName(), trelloListDto.isClosed()))
                 .collect(toList());
     }
