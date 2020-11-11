@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static java.util.Optional.of;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -24,7 +23,7 @@ public class DbServiceTest {
     DbService dbService;
 
     @Mock
-    TaskRepository taskRepository;
+    TaskRepository repository;
 
     @Test
     public void getAllTasks() {
@@ -33,38 +32,34 @@ public class DbServiceTest {
         List<Task> tasks = new ArrayList<>();
         tasks.add(task);
         //When
-        when(taskRepository.findAll()).thenReturn(tasks);
+        when(repository.findAll()).thenReturn(tasks);
         //Then
         Assert.assertEquals(1, dbService.getAllTasks().size());
         Assert.assertTrue(EqualsBuilder.reflectionEquals(task, dbService.getAllTasks().get(0)));
     }
-/*
+    @Test
+    public void getTask() {
+        Task task = new Task(1L, "title", "content");
+        System.out.println(task.toString());
+        //When
+        when(repository.findById(1L)).thenReturn(Optional.of(task));
+        //Then
+        Assert.assertEquals("content", dbService.getTask(1L).get().getContent());
+    }
     @Test
     public void getTaskById() {
         Task task = new Task(1L, "title", "content");
         //When
-        //when(taskRepository.findById(1L)).thenReturn(Optional.of(task));
+        when(repository.findById(1L)).thenReturn(Optional.of(task));
         //Then
-        Assert.assertEquals("title", dbService.getTaskById(1L).getTitle());
-        Assert.assertEquals("description", dbService.getTaskById(1L).getContent());
-
+        Assert.assertEquals("title", dbService.getTask(1L).get().getTitle());
+        Assert.assertEquals("content", dbService.getTask(1L).get().getContent());
     }
-    @Test
-    public void getTask() {
-        Task task = new Task(1L, "title", "content");
-        //When
-        when(taskRepository.findById(1L)).thenReturn(task);
-        //Then
-        Assert.assertTrue(dbService.getTaskById(1L).);
-        Assert.assertEquals("description", dbService.getTaskById(1L).getContent());
-
-    }*/
-
     @Test
     public void saveTask() {
         Task task = new Task(1L, "title", "content");
         //When
-        when(taskRepository.save(task)).thenReturn(task);
+        when(repository.save(task)).thenReturn(task);
         //Then
         Assert.assertEquals(1L, (long) dbService.saveTask(task).getId());
         Assert.assertEquals("title", dbService.saveTask(task).getTitle());
@@ -77,6 +72,6 @@ public class DbServiceTest {
         //When
         dbService.deleteTask(1L);
         //Then
-        verify(taskRepository, times(1)).deleteById(1L);
+        verify(repository, times(1)).deleteById(1L);
     }
 }
