@@ -13,9 +13,9 @@ public class EmailScheduler {
     @Autowired
     ScheduledEmail scheduledEmail;
 
-    //@Scheduled(fixedDelay = 10000)
-    @Scheduled(cron = "0 0 * * * *")
+    @Scheduled(fixedDelay = 10000)
+    //@Scheduled(cron = "0 0 * * * *")
     public void sendInformationEmail() {
-        simpleEmailService.send(scheduledEmail.getEmail());
+        simpleEmailService.send(scheduledEmail.getEmail(),scheduledEmail.getTaskTitles());
     }
 }

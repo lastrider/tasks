@@ -11,6 +11,8 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SimpleEmailService {
 
@@ -30,7 +32,18 @@ public class SimpleEmailService {
             javaMailSender.send(createMimeMessage(emile));
             LOGGER.info("Email has been sent.");
         } catch (MailException e) {
-            LOGGER.error("Faild to process email sending: ", e.getMessage(), e);
+            LOGGER.error("Failed to process email sending: ", e.getMessage(), e);
+        }
+    }
+
+    public void send(Email emile, List<String> taskTitles) {
+        LOGGER.info("Starting email preparation...");
+        try {
+            //SimpleMailMessage mailMessage = createMailMessage(emile);
+            javaMailSender.send(createMimeMessage(emile, taskTitles));
+            LOGGER.info("Email has been sent.");
+        } catch (MailException e) {
+            LOGGER.error("Failed to process email sending: ", e.getMessage(), e);
         }
     }
 
@@ -40,6 +53,15 @@ public class SimpleEmailService {
             messageHelper.setTo(email.getReceiverEmail());
             messageHelper.setSubject(email.getSubject());
             messageHelper.setText(mailCreatorService.buildTrelloCardEmail(email.getMessage()),true);
+        };
+    }
+
+    private MimeMessagePreparator createMimeMessage(final Email email,List<String> taskTitles) {
+        return mimeMessage -> {
+            MimeMessageHelper messageHelper = new MimeMessageHelper((mimeMessage));
+            messageHelper.setTo(email.getReceiverEmail());
+            messageHelper.setSubject(email.getSubject());
+            messageHelper.setText(mailCreatorService.buildDailyTrelloCardEmail(email.getMessage(),taskTitles),true);
         };
     }
 
