@@ -47,7 +47,7 @@ public class TaskControllerTest {
         when(dbService.getAllTasks()).thenReturn(tasks);
         when(taskMapper.mapToTaskDtoList(tasks)).thenReturn(taskDtos);
         //When&Then
-        mockMvc.perform(get("/v1/task/getTasks").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/v1/tasks").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$", hasSize(0)));
     }
@@ -63,7 +63,7 @@ public class TaskControllerTest {
         when(dbService.getAllTasks()).thenReturn(tasks);
         when(taskMapper.mapToTaskDtoList(any())).thenReturn(taskDtos);
 //When&Then
-        mockMvc.perform(get("/v1/task/getTasks").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/v1/tasks").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[0].id", is(1)))
                 .andExpect(jsonPath("$[0].title", is("title1")))
@@ -83,9 +83,8 @@ public class TaskControllerTest {
         when(taskMapper.mapToTaskDto(task)).thenReturn(taskDto);
 
         //When & Then
-        mockMvc.perform(get("/v1/task/getTask?taskId=1").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/v1/tasks/1").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(1)))
                 .andExpect(jsonPath("$.title", is("test title")))
                 .andExpect(jsonPath("$.content", is("test content")));
     }
@@ -95,7 +94,7 @@ public class TaskControllerTest {
         //Given
         when(dbService.getTask(1L)).thenReturn(java.util.Optional.of( new Task()));
         //When&Then
-        mockMvc.perform(delete("/v1/task/deleteTask?taskId=1").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(delete("/v1/tasks/1").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
@@ -105,7 +104,7 @@ public class TaskControllerTest {
         TaskDto taskDto = new TaskDto(1L, "title1", "content1");
         String jsonContent = new Gson().toJson(taskDto);
 
-        mockMvc.perform(put("/v1/task/updateTask")
+        mockMvc.perform(put("/v1/tasks")
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .content(jsonContent))
@@ -117,7 +116,7 @@ public class TaskControllerTest {
         TaskDto taskDto = new TaskDto(1L, "title1", "content1");
         String jsonContent = new Gson().toJson(taskDto);
 
-        mockMvc.perform(post("/v1/task/createTask")
+        mockMvc.perform(post("/v1/tasks")
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .content(jsonContent))
